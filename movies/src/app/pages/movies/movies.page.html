@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Movies</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-searchbar [(ngModel)]="title" color="" placeholder="Filter movie" (ionChange)="searchItems($event)"></ion-searchbar>
+
+  <ion-item>
+    <ion-label>Select searchtype</ion-label>
+    <ion-select [(ngModel)]="searchType" (ionChange)="searchItems($event)">
+      <ion-select-option value="">All</ion-select-option>
+      <ion-select-option value="movies">Movies</ion-select-option>
+      <ion-select-option value="series">Series</ion-select-option>
+      <ion-select-option value="episode">Episode</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list>
+    <ion-item 
+      button 
+      *ngFor="let result of (results | async)"
+      [routerLink]="['/', 'movies', result.imdbID]"
+    >
+      <ion-thumbnail slot="start">
+        <img [src]="result.Poster" alt="{{result.Title}}" *ngIf="result.Poster !== 'N/A'">
+      </ion-thumbnail>
+      <ion-label text-wrap>
+        <h3>{{result.Title}}</h3>
+        {{result.Year}}
+      </ion-label>
+      <ion-icon slot="end" name="videocam" *ngIf="result.Type === 'movie'"></ion-icon>
+      <ion-icon slot="end" name="tv" *ngIf="result.Type === 'series'"></ion-icon>
+      <ion-icon slot="end" name="eye" *ngIf="result.Type === 'episode'"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

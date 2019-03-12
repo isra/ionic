@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{movie?.Genre}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card *ngIf="movie">
+    <ion-card-header>
+      <ion-card-title>{{movie.Title}}</ion-card-title>
+      <ion-card-subtitle>{{movie.Year}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content text-center>
+      <img [src]="movie.Poster" *ngIf="movie.Poster && movie.Poster !== 'N/A'" class="thumbnail" alt="{{movie.Title}}" />
+      {{movie.Plot}}
+      <ion-item lines="none">
+        <ion-icon slot="start" name="star-half"></ion-icon> 
+        <ion-label>{{movie.imdbRating}}</ion-label>       
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon slot="start" name="clipboard"></ion-icon>
+        <ion-label>{{movie.Director}}</ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon slot="start" name="contacts"></ion-icon>
+        <ion-label>{{movie.Actors}}</ion-label>
+      </ion-item>
+
+      <ion-button 
+        (click)="openWebsite()" 
+        expand="full"
+        *ngIf="movie.Website && movie.Website !== 'N/A'"
+      >
+        Open website
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
